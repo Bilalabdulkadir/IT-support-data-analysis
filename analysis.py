@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+print("Starting IT Support Data Analysis...")
+
 # Load data
 data = pd.read_csv("tickets.csv")
 
@@ -8,7 +10,7 @@ data = pd.read_csv("tickets.csv")
 avg_time = data["ResolutionTime"].mean()
 issue_counts = data["IssueType"].value_counts()
 
-print("Average Resolution Time:", avg_time)
+print("\nAverage Resolution Time:", avg_time)
 print("\nIssue Counts:\n", issue_counts)
 
 # --- Chart 1: Issue Type Count ---
@@ -19,7 +21,6 @@ plt.xlabel("Issue Type")
 plt.ylabel("Count")
 plt.tight_layout()
 plt.savefig("issue_type_chart.png")
-plt.close()
 
 # --- Chart 2: Resolution Time Distribution ---
 plt.figure()
@@ -29,6 +30,5 @@ plt.xlabel("Minutes")
 plt.ylabel("Frequency")
 plt.tight_layout()
 plt.savefig("resolution_time_chart.png")
-plt.close()
 
-print("Charts saved successfully!")
+print("\nCharts created successfully!")
