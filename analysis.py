@@ -21,6 +21,7 @@ plt.xlabel("Issue Type")
 plt.ylabel("Count")
 plt.tight_layout()
 plt.savefig("issue_type_chart.png")
+plt.close()
 
 # --- Chart 2: Resolution Time Distribution ---
 plt.figure()
@@ -30,5 +31,6 @@ plt.xlabel("Minutes")
 plt.ylabel("Frequency")
 plt.tight_layout()
 plt.savefig("resolution_time_chart.png")
+plt.close()
 
 print("\nCharts created successfully!")
