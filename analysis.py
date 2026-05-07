@@ -1,36 +1,42 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-print("Starting IT Support Data Analysis...")
+# -------------------------------
+# IT Support Ticket Analysis
+# Author: Bilal Abdulkadir Muhammed
+# -------------------------------
 
-# Load data
-data = pd.read_csv("tickets.csv")
+def analyze_tickets(file_path="tickets.csv"):
+    data = pd.read_csv(file_path)
 
-# --- Basic Analysis ---
-avg_time = data["ResolutionTime"].mean()
-issue_counts = data["IssueType"].value_counts()
+    # Clean data
+    data = data.dropna(subset=["ResolutionTime", "IssueType"])
 
-print("\nAverage Resolution Time:", avg_time)
-print("\nIssue Counts:\n", issue_counts)
+    # Metrics
+    avg_time = data["ResolutionTime"].mean()
+    median_time = data["ResolutionTime"].median()
+    issue_counts = data["IssueType"].value_counts()
 
-# --- Chart 1: Issue Type Count ---
-plt.figure()
-issue_counts.plot(kind='bar')
-plt.title("Number of Tickets by Issue Type")
-plt.xlabel("Issue Type")
-plt.ylabel("Count")
-plt.tight_layout()
-plt.savefig("issue_type_chart.png")
-plt.close()
+    # Save summary report
+    with open("analysis_summary.txt", "w") as f:
+        f.write("IT Support Analysis Report\n\n")
+        f.write(f"Average Resolution Time: {avg_time:.2f} minutes\n")
+        f.write(f"Median Resolution Time: {median_time:.2f} minutes\n\n")
+        f.write("Issue Type Counts:\n")
+        f.write(issue_counts.to_string())
 
-# --- Chart 2: Resolution Time Distribution ---
-plt.figure()
-data["ResolutionTime"].plot(kind='hist', bins=5)
-plt.title("Resolution Time Distribution")
-plt.xlabel("Minutes")
-plt.ylabel("Frequency")
-plt.tight_layout()
-plt.savefig("resolution_time_chart.png")
-plt.close()
+    # Visualization
+    plt.figure(figsize=(8,6))
+    issue_counts.plot(kind='bar')
+    plt.title("IT Support Tickets by Issue Type")
+    plt.xlabel("Issue Type")
+    plt.ylabel("Number of Tickets")
+    plt.tight_layout()
+    plt.savefig("issue_type_chart.png")
 
-print("\nCharts created successfully!")
+    return avg_time, median_time, issue_counts
+
+
+# Run analysis
+if __name__ == "__main__":
+    analyze_tickets()
